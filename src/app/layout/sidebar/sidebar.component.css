@@ -1,0 +1,8 @@
+.sidebar-list a {
+    text-decoration: none;
+
+}
+
+.page-wrapper.compact-wrapper .page-body-wrapper div.sidebar-wrapper.close_icon .sidebar-main .sidebar-links .simplebar-wrapper .simplebar-mask .simplebar-content-wrapper .simplebar-content>li a svg {
+    margin-right: 0 !important;
+}

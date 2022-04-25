@@ -1,0 +1,65 @@
+<body>
+    <!-- login page start-->
+    <div class="container-fluid p-0">
+        <div class="row m-0">
+            <div class="col-12 p-0">
+                <div class="login-card">
+                    <div class="login-main">
+                        <form [formGroup]="loginForm" class="theme-form" (ngSubmit)="onSubmit()">
+                            <div>
+                                <a class="logo" href="#"><img class="img-fluid for-light login-l-img"
+                                        src="../../../assets/images/logo/Group.png" alt="looginpage">
+                                </a>
+                            </div>
+                            <h4>Sign in to account</h4>
+                            <p>Enter your email & password to login</p>
+                            
+                            <div class="form-group">
+                                <label class="col-form-label">Email Address</label>
+                                <input class="form-control" type="email" required="" formControlName="email"
+                                [ngClass]="{'is-invalid': submitted && f['email'].errors }"  placeholder="Test@gmail.com">
+                                <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                    <div *ngIf="f['email'].errors['required']">Email is required</div>
+                                    <div *ngIf="f['email'].errors['email']">Email must be a valid email address</div>
+                                </div>
+                            </div>
+
+                            <div class="form-group" style="position: relative;">
+                                <label class="col-form-label">Password</label>
+                                <input type="password" formControlName="password" class="form-control" 
+                                [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" />
+                                    <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                                        <div *ngIf="f['password'].errors['required']">
+                                            Password is required
+                                        </div>
+                                            <div *ngIf="f['password'].errors['minlength']">
+                                                Password must be at least 6 characters
+                                            </div>
+                                                <!-- <div class="show-hide"><span class="show"> </span></div> -->
+                                    </div>
+                            </div>
+
+                            <div class="form-group mb-0">
+                                <div class="row" style="align-items: flex-start;">
+                                    <div class="col-7">
+                                        <div class="checkbox p-0">
+                                            <input id="checkbox1" type="checkbox"  >
+                                            <label class="text-muted" for="checkbox1">Remember password</label>
+                                            <!-- <div *ngIf="submitted && f['acceptTerms'].errors" class="invalid-feedback">Accept Ts & Cs is required</div> -->
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-5">
+                                        <a class="link for-pass" routerLink="/forgot-password">Forgot password?</a>
+                                    </div>
+                                </div>
+                                <button class="btn btn-primary mt-3 btn-block" type="submit">Sign in
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

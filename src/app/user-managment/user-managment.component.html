@@ -1,0 +1,206 @@
+<!-- tap on top starts-->
+<div class="tap-top">
+    <i data-feather="chevrons-up"></i>
+</div>
+<!-- tap on tap ends-->
+<!-- page-wrapper Start-->
+<div class="page-wrapper compact-wrapper" id="pageWrapper">
+    <!-- Page Header Start-->
+    <app-header></app-header>
+    <!-- Page Header Ends-->
+    <!-- Page Body Start-->
+    <div class="page-body-wrapper">
+        <!-- Page Sidebar Start-->
+        <div class="sidebar-wrapper">
+            <app-sidebar></app-sidebar>
+        </div>
+        <!-- Page Sidebar Ends-->
+        <div class="page-body">
+            <div class="container-fluid">
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-6">
+                            <h3>User Management</h3>
+                        </div>
+                        <div class="col-6">
+                            <ol class="breadcrumb">
+                                <li class="breadcrumb-item">
+                                    <a routerLink="/index">
+                                        <i-feather name="Home">
+                                        </i-feather>
+                                    </a>
+                                </li>
+                                <li class="breadcrumb-item">user-Management</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="container-fluid">                
+                <div class="row">                    
+                    <div class="col-sm-12">
+                        <div>
+                           <input class="form-control search w-25 mb-3 justify-content-end" 
+                           type="text" [(ngModel)]="userFilter.first_name" placeholder="Search by">                         
+                         </div>
+                            <div class="card">                           
+                            <div>
+                               
+                            <div class="table table-responsive d-flex justify-content-start">
+                                <table class="display" id="basic-1">
+                                    <thead>
+                                        <tr>
+                                            <th>id</th>
+                                            <th>avatar</th>
+                                            <th [class.active]="order == email" (click)="sortOrder('email')">email 
+                                                <span [hidden]="reverse">
+                                                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                                </span>
+                                                <span [hidden]="!reverse">
+                                                    <i class="fa fa-sort-asc" aria-hidden="true"></i>
+                                                </span>
+                                            </th>
+
+                                            <th [class.active]="order == first_name" (click)="sortOrder('first_name')">first_name
+                                                <span [hidden]="reverse">
+                                                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                                </span>
+                                                <span [hidden]="!reverse">
+                                                    <i class="fa fa-sort-asc" aria-hidden="true"></i>
+                                                </span>
+                                            </th>
+                                            <th [class.active]="order == last_name" (click)="sortOrder('last_name')">last_name
+                                                <span [hidden]="reverse">
+                                                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
+                                                </span>
+                                                <span [hidden]="!reverse">
+                                                    <i class="fa fa-sort-asc" aria-hidden="true"></i>
+                                                </span>
+                                            </th>                                            
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody *ngIf="element && element.data">
+                                        <tr *ngFor="let elements of element.data | filterBy: userFilter | orderBy : order:reverse :caseInsensitive"> 
+                                            <td>{{elements.id}}</td>
+                                            <td><img class="img-size" :src={{elements.avatar}}></td>
+                                            <td>{{elements.email}}</td>
+                                            <td>{{elements.first_name}}</td>
+                                            <td>{{elements.last_name}}</td>
+                                             <td>
+                                                                                                                                          
+                                                <button type="button" class="btn btn-primary mr-2" data-toggle="modal" data-target="#exampleModalCenter" (click)="View(elements.avatar,elements.email,elements.first_name,elements.last_name)">View</button>
+                                                 <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">User Details
+                                                                <span [hidden]=""></span> </h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>                                                          
+                                                        <div class="modal-body">                                                           
+                                                            <div class="form-group">
+                                                                <label for="">Image</label>
+                                                                <img :src="{{avatar}}"/>                                                                          
+                                                            </div>  
+                                                            <div class="form-group">
+                                                                <label for="email">Email:</label>
+                                                                <span>{{email}}</span> 
+                                                                    
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="first_name">first_name:</label>
+                                                                <span>{{first_name}}</span>                                                                           
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="last_name">last_name:</label>    
+                                                                <span>{{last_name}}</span>                                                                         
+                                                            </div>                                                                      
+                                                        </div>                                                         
+                                                    </div>
+                                                </div>  
+                                                </div>  
+
+                                                <button type="button" class="btn btn-success mr-2" data-toggle="modal" data-target="#exampleModalCenter1" 
+                                                (click)="updateForm(elements.id,elements.avatar,elements.email,elements.first_name,elements.last_name)">Update</button>
+                                                
+                                                    <div class="modal fade" id="exampleModalCenter1" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLongTitle">UserEdit Form</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close" id="updateclose">
+                                                            <span aria-hidden="true">×</span>
+                                                            </button>
+                                                        </div>
+                                                           <form [formGroup]="editForm" (ngSubmit)="onSubmit()">
+                                                        <div class="modal-body">                                                           
+                                                            <div class="form-group">
+                                                                <label for="">Image</label>
+                                                                    <img  :src={{elements.avatar}}>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="email">Email</label>
+                                                                    <input type="email" formControlName="email" class="form-control" 
+                                                                        [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" />
+                                                                        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                                                                        <div *ngIf="f['email'].errors['required']">email is required</div>
+                                                                        </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="first_name">first_name</label>
+                                                                    <input type="first_name" formControlName="first_name" class="form-control" 
+                                                                        [ngClass]="{ 'is-invalid': submitted && f['first_name'].errors }" />
+                                                                        <div *ngIf="submitted && f['first_name'].errors" class="invalid-feedback">
+                                                                            <div *ngIf="f['first_name'].errors['required']">first_name is required</div>
+                                                                        </div>
+                                                            </div>
+                                                            <div class="form-group">
+                                                                <label for="last_name">last_name</label>
+                                                                    <input type="last_name" formControlName="last_name" class="form-control" 
+                                                                        [ngClass]="{ 'is-invalid': submitted && f['last_name'].errors }" />
+                                                                            <div *ngIf="submitted && f['last_name'].errors" class="invalid-feedback">
+                                                                                <div *ngIf="f['last_name'].errors['required']">last_name is required</div>
+                                                                            </div>
+                                                            </div>                                                                        
+                                                        </div>                                                            
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+                                                            <button type="submit"  class="btn btn-info">Update</button>
+                                                        </div>
+                                                        </form>
+                                                       </div>
+                                                </div>  
+                                                    </div>  
+                                                                                            
+                                                <button type="button" class="btn btn-danger mr-2" (click)="deleteUser(elements)">Remove</button>
+                                            </td> 
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Container-fluid Ends -->
+            <!-- Pagination Start -->
+          <div>
+            <ngb-pagination 
+                [collectionSize]="total" 
+                [(page)]="page"
+                [pageSize]="per_page" 
+                (pageChange)="getPremiumData($event);">
+            </ngb-pagination>
+        </div>
+
+        </div>
+        <!-- footer start-->
+        <app-footer></app-footer>
+        </div>
+    </div>
+</div>
